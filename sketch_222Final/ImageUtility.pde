@@ -39,13 +39,13 @@ void mouseReleased(){
 
 //-------------------------Emoji Reaction
 
-class imageHolder{
+class ImageHolder{
   
   PImage img;
   PVector pos = new PVector(0,0);
   float size = 0;
   
-  imageHolder(PImage img, float x, float y, float s){
+  ImageHolder(PImage img, float x, float y, float s){
     this.img = img;
     size = img.width*s;
     pos.y = y;

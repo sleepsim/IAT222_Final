@@ -4,15 +4,20 @@
 int moneySum = 0;     //for Counter
 int savedTime;        //for Timer
 int totalTime = 1000; //in ms
-int sinceStart = 0;
+
+int savedTime2 = 0;
+int totalTime2 = 1000;
 int s = 0;
 int m = 0;
 int h = 0;
 
-
+boolean readyToAdd = true;    //avoiding ConcurrentModificationException
 
 class MoneyCounter extends PApplet {
-  ArrayList<imageHolder> reactions = new ArrayList<imageHolder>();
+  
+  ArrayList<ImageHolder> reactions = new ArrayList<ImageHolder>();
+  ArrayList<ImageHolder> removeList = new ArrayList<ImageHolder>();
+  
   MoneyCounter(){
     super();
     PApplet.runSketch(new String[] {this.getClass().getSimpleName()}, this);
@@ -29,40 +34,59 @@ class MoneyCounter extends PApplet {
   
   public void draw(){
     background(0);
+    
+    //Timer for moneySum
     int passedTime = millis() - savedTime;
-    float randomizer = random(100,2000);
+    float randomizer = random(0,350);
     if(passedTime > totalTime) {
-      moneySum += 1100;
+      moneySum += 1000;
       moneySum += randomizer;
       savedTime = millis();
+      
+      //updating total app time
+      s++;
+      if(s == 60){
+        m++;
+        s = 0;
+      }
+      if(m == 60){
+        h++;
+        m = 0;
+      }
     }
-    sinceStart = millis();
+           
+    //text
     textSize(28);
     String readableMoneySum = nfc(moneySum);
     text("$" + readableMoneySum, width/2-50, height/2);
     textSize(15);
-    text("reference: https://www.icsid.org/uncategorized/how-many-products-does-nike-sell-a-day/", 0, height/2+200);
-    text("Time since, " + sinceStart + " Nike earned", 0, 30);
-    
-    for(imageHolder r: reactions){
+    text("Source: https://www.icsid.org/uncategorized/how-many-products-does-nike-sell-a-day/", 0, height/2+200);
+    text("In the last " + 
+         "Hours:"+h+
+         " Minutes:"+m+
+         " Seconds:"+s+ 
+         "\n" + "\n"+
+         "Since this program started running, Nike has earned", 0, 30);
+      
+   //Reaction images
+    for(ImageHolder r: reactions){
+      readyToAdd = false;
       image(r.img, r.pos.x, r.pos.y, r.size, r.size);
       r.pos.x -= random(-3,3);
       r.pos.y -= random(1,3);
-    }
-    
-    //check for ones ready for removal
-    for(imageHolder r: reactions){
-      if(r.pos.y < -50) {
-        reactions.remove(r);
-        break;
+      if(r.pos.y <-20) {
+        removeList.add(r);
       }
     }
-   
+    readyToAdd = true;
+    
+    //check for ones ready for removal - avoiding ConcurrentModificationExcep
+    reactions.removeAll(removeList);
   }
 }
 
 void reaction(Button b){
-  if(window.reactions.size() <= 12){
-    window.reactions.add(new imageHolder(b.img, random(100,900), 600, random(0.7,1.3)));
+  if(window.reactions.size() <= 12 && readyToAdd){
+    window.reactions.add(new ImageHolder(b.img, random(100,900), 600, random(0.7,1.3)));
   }
 }
