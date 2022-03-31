@@ -25,6 +25,11 @@ void checkClick(){
     reactionOne.clicked(1);
     if(inputReady){
       reaction(reactionOne);
+      if(renderMoneyLoss == false){
+        moneyLoss = 200;
+        moneySum -= 200;
+      }
+      renderMoneyLoss = true;
     }
     inputReady = false;
   }
@@ -43,12 +48,15 @@ class ImageHolder{
   
   PImage img;
   PVector pos = new PVector(0,0);
+  PVector vel = new PVector(0,0);
   float size = 0;
+  float damp = 0.8;
   
   ImageHolder(PImage img, float x, float y, float s){
     this.img = img;
     size = img.width*s;
     pos.y = y;
     pos.x = x;
-  }  
+  }
+  
 }

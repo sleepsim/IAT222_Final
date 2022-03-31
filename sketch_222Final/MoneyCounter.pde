@@ -4,12 +4,16 @@
 int moneySum = 0;     //for Counter
 int savedTime;        //for Timer
 int totalTime = 1000; //in ms
+int moneyLoss = 0;
+int moneyLossTimer = 0;
 
 int savedTime2 = 0;
 int totalTime2 = 1000;
 int s = 0;
 int m = 0;
 int h = 0;
+
+boolean renderMoneyLoss = false;
 
 boolean readyToAdd = true;    //avoiding ConcurrentModificationException
 
@@ -56,6 +60,7 @@ class MoneyCounter extends PApplet {
     }
            
     //text
+    fill(255,255,255);
     textSize(28);
     String readableMoneySum = nfc(moneySum);
     text("$" + readableMoneySum, width/2-50, height/2);
@@ -82,7 +87,20 @@ class MoneyCounter extends PApplet {
     
     //check for ones ready for removal - avoiding ConcurrentModificationExcep
     reactions.removeAll(removeList);
+    
+    //moneyloss
+    if(renderMoneyLoss){
+      fill(255,100,100);
+      textSize(28);
+      text(moneyLoss, width/2+200, height/2);
+      moneyLossTimer++;
+    }
+    if(moneyLossTimer == 70){
+      moneyLossTimer = 0;
+      renderMoneyLoss = false;
+    }
   }
+  
 }
 
 void reaction(Button b){
