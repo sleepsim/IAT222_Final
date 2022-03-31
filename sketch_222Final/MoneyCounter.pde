@@ -5,6 +5,8 @@ int moneySum = 0;     //for Counter
 int savedTime;        //for Timer
 int totalTime = 1000; //in ms
 
+ArrayList<PImage> reactions = new ArrayList<PImage>();
+
 class MoneyCounter extends PApplet {
   
   MoneyCounter(){
@@ -36,5 +38,17 @@ class MoneyCounter extends PApplet {
     textSize(15);
     text("reference: https://www.icsid.org/uncategorized/how-many-products-does-nike-sell-a-day/", 0, height/2+200);
     
+    for(PImage reaction: reactions){
+      
+      image(reaction, random(150,850),600);
+    }
+    
   }
+}
+
+public void reaction(Button b){
+  reactions.add(b.img);
+  println("clicked");
+  println(reactions.size());
+  
 }

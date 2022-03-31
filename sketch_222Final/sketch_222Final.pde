@@ -17,7 +17,6 @@ public void settings(){
 void setup(){
    window = new MoneyCounter();
    loadImages();
-   
    //Buttons
    reactionOne = new Button(reactionOneImg, 200, 400, reactionOneCImg);
    reactionTwo = new Button(reactionOneImg, 400, 400, reactionOneImg);
@@ -37,7 +36,5 @@ void draw(){
   reactionTwo.render();
   reactionThree.render();
   reactionFour.render();
-  
-  println(reactionOne.Hit);
   
 }
