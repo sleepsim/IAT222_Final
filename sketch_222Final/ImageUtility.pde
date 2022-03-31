@@ -42,7 +42,7 @@ void mouseReleased(){
 class Reaction{
   
   PImage img;
-  PVector pos;
+  PVector pos = new PVector(0,0);
   
   Reaction(PImage img, float x, float y){
     this.img = img;
@@ -51,9 +51,11 @@ class Reaction{
   }
   
   void render(){
+    pushMatrix();
     translate(pos.x,pos.y);
-    float randomScale = width*random(0.5,1.2);
-    image(img, -img.width/2, -img.height/2, randomScale, randomScale);
+    float randomScale = img.width*random(0.5,1.2);
+    image(img, -img.width/2, -img.height/2);
+    popMatrix();
   }
     
     
