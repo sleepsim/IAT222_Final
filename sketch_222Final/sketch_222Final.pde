@@ -1,7 +1,7 @@
 MoneyCounter window;
 
 public void settings(){
-  //size(500,200);
+  size(1000,600);
   //fullScreen();
 }
 
