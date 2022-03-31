@@ -4,11 +4,15 @@
 int moneySum = 0;     //for Counter
 int savedTime;        //for Timer
 int totalTime = 1000; //in ms
+int sinceStart = 0;
+int s = 0;
+int m = 0;
+int h = 0;
 
 
 
 class MoneyCounter extends PApplet {
-  ArrayList<Reaction> reactions = new ArrayList<Reaction>();
+  ArrayList<imageHolder> reactions = new ArrayList<imageHolder>();
   MoneyCounter(){
     super();
     PApplet.runSketch(new String[] {this.getClass().getSimpleName()}, this);
@@ -32,18 +36,33 @@ class MoneyCounter extends PApplet {
       moneySum += randomizer;
       savedTime = millis();
     }
-    
+    sinceStart = millis();
     textSize(28);
-    text("$" + moneySum, width/2-50, height/2);
+    String readableMoneySum = nfc(moneySum);
+    text("$" + readableMoneySum, width/2-50, height/2);
     textSize(15);
     text("reference: https://www.icsid.org/uncategorized/how-many-products-does-nike-sell-a-day/", 0, height/2+200);
+    text("Time since, " + sinceStart + " Nike earned", 0, 30);
     
-    for(Reaction r: reactions){
+    for(imageHolder r: reactions){
+      image(r.img, r.pos.x, r.pos.y, r.size, r.size);
+      r.pos.x -= random(-3,3);
+      r.pos.y -= random(1,3);
     }
     
+    //check for ones ready for removal
+    for(imageHolder r: reactions){
+      if(r.pos.y < -50) {
+        reactions.remove(r);
+        break;
+      }
+    }
+   
   }
 }
 
-public void reaction(Button b){
-  window.reactions.add(new Reaction(b.img, random(100,900), 300));
+void reaction(Button b){
+  if(window.reactions.size() <= 12){
+    window.reactions.add(new imageHolder(b.img, random(100,900), 600, random(0.7,1.3)));
+  }
 }

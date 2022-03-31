@@ -39,24 +39,16 @@ void mouseReleased(){
 
 //-------------------------Emoji Reaction
 
-class Reaction{
+class imageHolder{
   
   PImage img;
   PVector pos = new PVector(0,0);
+  float size = 0;
   
-  Reaction(PImage img, float x, float y){
+  imageHolder(PImage img, float x, float y, float s){
     this.img = img;
-    this.pos.y = y;
-    this.pos.x = x;
-  }
-  
-  void render(){
-    pushMatrix();
-    translate(pos.x,pos.y);
-    float randomScale = img.width*random(0.5,1.2);
-    image(img, -img.width/2, -img.height/2);
-    popMatrix();
-  }
-    
-    
+    size = img.width*s;
+    pos.y = y;
+    pos.x = x;
+  }  
 }
