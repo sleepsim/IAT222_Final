@@ -32,9 +32,9 @@ class MoneyCounter extends PApplet {
     }
     
     textSize(28);
-    text("$" + moneySum, width/2, height/2);
+    text("$" + moneySum, width/2-50, height/2);
     textSize(15);
-    text("reference: fill this in later", 0, height/2+200);
+    text("reference: https://www.icsid.org/uncategorized/how-many-products-does-nike-sell-a-day/", 0, height/2+200);
     
   }
 }
