@@ -21,12 +21,12 @@ void loadImages(){
   reactionDownCImg = loadImage("thumbsDownClicked.png");
   
   //Resize
-  reactionOneImg.resize(200,200);
-  reactionTwoImg.resize(200,200);
-  reactionThreeImg.resize(200,200);
-  reactionFourImg.resize(200,200);
-  reactionUpImg.resize(200,200);
-  reactionDownImg.resize(200,200);
+  reactionOneImg.resize(height/4,height/4);
+  reactionTwoImg.resize(height/4,height/4);
+  reactionThreeImg.resize(height/4,height/4);
+  reactionFourImg.resize(height/4,height/4);
+  reactionUpImg.resize(height/4,height/4);
+  reactionDownImg.resize(height/4,height/4);
   
   reactionOneCImg.resize(180,180);
   reactionTwoCImg.resize(180,180);
@@ -44,10 +44,11 @@ void checkClick(){
   
   //Button 1
   if(mousePressed && reactionOne.Hit){
-    reactionOne.clicked(1);
     if(inputReady){
-      reaction(reactionOne, 150, 0);
       if(renderMoneyLoss == false){
+        reactionOne.clicked(1);
+        reaction(reactionOne, 150, 0);
+        r1count++;
         moneySum -= 150;
       }
       renderMoneyLoss = true;
@@ -58,10 +59,11 @@ void checkClick(){
   
   //Button 2
   if(mousePressed && reactionTwo.Hit){
-    reactionTwo.clicked(1);
     if(inputReady){
-      reaction(reactionTwo, 100, 0);
       if(renderMoneyLoss == false){
+        reactionTwo.clicked(1);
+        reaction(reactionTwo, 100, 0);
+        r2count++;
         moneySum -= 100;
       }
       renderMoneyLoss = true;
@@ -72,10 +74,11 @@ void checkClick(){
   
   //Button 3
   if(mousePressed && reactionThree.Hit){
-    reactionThree.clicked(1);
     if(inputReady){
-      reaction(reactionThree, 50, 0);
       if(renderMoneyLoss == false){
+        reactionThree.clicked(1);
+        reaction(reactionThree, 50, 0);
+        r3count++;
         moneySum -= 50;
       }
       renderMoneyLoss = true;
@@ -86,10 +89,11 @@ void checkClick(){
   
   //Button 4
   if(mousePressed && reactionFour.Hit){
-    reactionFour.clicked(1);
     if(inputReady){
-      reaction(reactionFour, 100, 1);
       if(renderMoneyLoss == false){
+        reactionFour.clicked(1);
+        reaction(reactionFour, 100, 1);
+        r4count++;
         moneySum += 100;
       }
       renderMoneyLoss = true;
@@ -100,10 +104,11 @@ void checkClick(){
   
   //Button  Up
   if(mousePressed && reactionUp.Hit){
-    reactionUp.clicked(1);
     if(inputReady){
-      reaction(reactionUp, 50, 1);
       if(renderMoneyLoss == false){
+        reactionUp.clicked(1);
+        reaction(reactionUp, 50, 1);
+        rucount++;
         moneySum += 50;
       }
       renderMoneyLoss = true;
@@ -114,10 +119,11 @@ void checkClick(){
   
   //Button Down
   if(mousePressed && reactionDown.Hit){
-    reactionDown.clicked(1);
     if(inputReady){
-      reaction(reactionDown, 50, 0);
       if(renderMoneyLoss == false){
+        reactionDown.clicked(1);
+        reaction(reactionDown, 50, 0);
+        rdcount++;
         moneySum -= 50;
       }
       renderMoneyLoss = true;

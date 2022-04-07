@@ -34,7 +34,7 @@ class MoneyCounter extends PApplet {
   
   public void settings(){
     //size(1000,600);
-    fullScreen(2);
+    fullScreen(1);
   }
   
   public void setup(){
@@ -98,19 +98,19 @@ class MoneyCounter extends PApplet {
       text(moneyLoss, width/2+200, height/2);
       moneyLossTimer++;
     }
-    if(moneyLossTimer == 70){
+    if(moneyLossTimer == 60){
       moneyLossTimer = 0;
       renderMoneyLoss = false;
     }
    reactions.addAll(addList);
-      println(reactions.size());
    addList.clear();
    //Reaction images
     for(ImageHolder r: reactions){
       readyToAdd = false;
+         println(r.pos.x);
       image(r.img, r.pos.x, r.pos.y, r.size, r.size);
       //r.pos.x -= random(-3,3);
-      r.pos.y -= random(1,3);
+      r.pos.y -= random(3,4);
       if(r.pos.y <-20) {
         removeList.add(r);
       }
@@ -126,8 +126,8 @@ class MoneyCounter extends PApplet {
 
 //Takes button image, amount to subtract/add, and type (add/sub)
 void reaction(Button b, int amt, int type){
-  if(window.reactions.size() <= 25 && readyToAdd){
-    window.addList.add(new ImageHolder(b.img, random(100,900), 600, random(0.6,0.8)));
+  if(window.reactions.size() <= 15){
+    window.addList.add(new ImageHolder(b.img, random(200, window.width-200), window.height, random(0.6,0.8)));
   }
   if(type == 1) moneyToggle = true;
   if(type == 0) moneyToggle = false;
