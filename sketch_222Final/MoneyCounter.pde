@@ -7,6 +7,10 @@ int totalTime = 1000; //in ms
 int moneyLoss = 0;
 int moneyLossTimer = 0;
 
+color green = color(100,255,100);
+color red = color(255,100,100);
+boolean moneyToggle = false;
+
 int savedTime2 = 0;
 int totalTime2 = 1000;
 int s = 0;
@@ -21,6 +25,7 @@ class MoneyCounter extends PApplet {
   
   ArrayList<ImageHolder> reactions = new ArrayList<ImageHolder>();
   ArrayList<ImageHolder> removeList = new ArrayList<ImageHolder>();
+  ArrayList<ImageHolder> addList = new ArrayList<ImageHolder>();
   
   MoneyCounter(){
     super();
@@ -32,6 +37,7 @@ class MoneyCounter extends PApplet {
   }
   
   public void setup(){
+    frameRate(60);
     background(0);
     savedTime = millis();
   }
@@ -63,21 +69,46 @@ class MoneyCounter extends PApplet {
     fill(255,255,255);
     textSize(28);
     String readableMoneySum = nfc(moneySum);
-    text("$" + readableMoneySum, width/2-50, height/2);
+    text("$" + readableMoneySum, width/2-70, height/2);
     textSize(15);
-    text("Source: https://www.icsid.org/uncategorized/how-many-products-does-nike-sell-a-day/", 0, height/2+200);
-    text("In the last " + 
-         "Hours:"+h+
-         " Minutes:"+m+
-         " Seconds:"+s+ 
+    text("In the last " + "\n"+
+         +h+" Hours "+ "\n"+
+         +m+" Minutes "+ "\n"+
+         +s+" Seconds"+ 
          "\n" + "\n"+
-         "Since this program started running, Nike has earned", 0, 30);
-      
+         "Since this program started running, Nike has earned the amount shown above,"+
+         "\n" + "\n"+
+         "Data based on: https://www.statista.com/topics/1243/nike/", 10, 400);
+   
+   //moneyloss
+    if(renderMoneyLoss){
+      if(!moneyToggle){
+        fill(red);
+        triangle(width/2+175,height/2-20,
+                 width/2+195,height/2-20,
+                 width/2+185,height/2);
+      }else if(moneyToggle){
+        fill(green);
+        triangle(width/2+175,height/2,
+                 width/2+195,height/2,
+                 width/2+185,height/2-20);
+      }
+      textSize(28);
+      text(moneyLoss, width/2+200, height/2);
+      moneyLossTimer++;
+    }
+    if(moneyLossTimer == 70){
+      moneyLossTimer = 0;
+      renderMoneyLoss = false;
+    }
+   reactions.addAll(addList);
+      println(reactions.size());
+   addList.clear();
    //Reaction images
     for(ImageHolder r: reactions){
       readyToAdd = false;
       image(r.img, r.pos.x, r.pos.y, r.size, r.size);
-      r.pos.x -= random(-3,3);
+      //r.pos.x -= random(-3,3);
       r.pos.y -= random(1,3);
       if(r.pos.y <-20) {
         removeList.add(r);
@@ -88,23 +119,16 @@ class MoneyCounter extends PApplet {
     //check for ones ready for removal - avoiding ConcurrentModificationExcep
     reactions.removeAll(removeList);
     
-    //moneyloss
-    if(renderMoneyLoss){
-      fill(255,100,100);
-      textSize(28);
-      text(moneyLoss, width/2+200, height/2);
-      moneyLossTimer++;
-    }
-    if(moneyLossTimer == 70){
-      moneyLossTimer = 0;
-      renderMoneyLoss = false;
-    }
+    //
   }
-  
 }
 
-void reaction(Button b){
-  if(window.reactions.size() <= 12 && readyToAdd){
-    window.reactions.add(new ImageHolder(b.img, random(100,900), 600, random(0.7,1.3)));
+//Takes button image, amount to subtract/add, and type (add/sub)
+void reaction(Button b, int amt, int type){
+  if(window.reactions.size() <= 25 && readyToAdd){
+    window.addList.add(new ImageHolder(b.img, random(100,900), 600, random(0.6,0.8)));
   }
+  if(type == 1) moneyToggle = true;
+  if(type == 0) moneyToggle = false;
+  moneyLoss = amt;
 }

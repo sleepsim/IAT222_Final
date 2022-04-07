@@ -73,5 +73,11 @@ void buttons(){
   
   if(overImg(reactionFour)) reactionFour.Hit = true;
   else reactionFour.Hit = false;
+  
+  if(overImg(reactionUp)) reactionUp.Hit = true;
+  else reactionUp.Hit = false;
+  
+  if(overImg(reactionDown)) reactionDown.Hit = true;
+  else reactionDown.Hit = false;
 
 }
