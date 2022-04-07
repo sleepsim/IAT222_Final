@@ -33,7 +33,8 @@ class MoneyCounter extends PApplet {
   }
   
   public void settings(){
-    size(1000,600);
+    //size(1000,600);
+    fullScreen(2);
   }
   
   public void setup(){
@@ -78,7 +79,7 @@ class MoneyCounter extends PApplet {
          "\n" + "\n"+
          "Since this program started running, Nike has earned the amount shown above,"+
          "\n" + "\n"+
-         "Data based on: https://www.statista.com/topics/1243/nike/", 10, 400);
+         "Data based on: https://www.statista.com/topics/1243/nike/", 10, height-200);
    
    //moneyloss
     if(renderMoneyLoss){
